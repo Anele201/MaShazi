@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MaShazi - My Ocean Whisper</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* General Styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            background: #0a192f;
+            color: #ccd6f6;
+            scroll-behavior: smooth;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #0a192f;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #64ffda;
+            border-radius: 10px;
+        }
+        
+        /* Stars Background */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 5s infinite ease-in-out;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+        
+        /* Floating Elements */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .floating-element {
+            position: absolute;
+            opacity: 0.7;
+            animation: float 20s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            margin-bottom: 20px;
+            color: #64ffda;
+            text-shadow: 0 0 10px rgba(100, 255, 218, 0.5);
+            animation: fadeInDown 1.5s ease;
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            color: #8892b0;
+            animation: fadeInUp 1.5s ease;
+        }
+        
+        .heart-btn {
+            background: transparent;
+            border: 2px solid #64ffda;
+            color: #64ffda;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 2s ease;
+        }
+        
+        .heart-btn:hover {
+            background: rgba(100, 255, 218, 0.1);
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(100, 255, 218, 0.5);
+        }
+        
+        /* Ocean Waves */
+        .ocean {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            overflow: hidden;
+        }
+        
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" fill="%23004e64"><path d="M0,60 C150,120 350,0 600,60 C850,120 1050,0 1200,60 L1200,120 L0,120 Z"></path></svg>');
+            background-size: 50% 100%;
+            animation: wave 10s linear infinite;
+        }
+        
+        .wave:nth-child(2) {
+            animation-duration: 15s;
+            opacity: 0.7;
+        }
+        
+        @keyframes wave {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(-25%); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        /* Sections Common Styles */
+        .section {
+            padding: 100px 20px;
+            position: relative;
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 60px;
+            color: #64ffda;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, transparent, #64ffda, transparent);
+        }
+        
+        /* Poem Section */
+        .poem {
+            background: rgba(10, 25, 47, 0.8);
+            backdrop-filter: blur(5px);
+        }
+        
+        .poem-content {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.3rem;
+            line-height: 1.8;
+            text-align: center;
+        }
+        
+        .poem-highlight {
+            color: #64ffda;
+            font-weight: bold;
+        }
+        
+        /* Gallery Section */
+        .gallery {
+            background: rgba(17, 34, 64, 0.5);
+        }
+        
+        .gallery-item {
+            position: relative;
+            margin-bottom: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.5s ease;
+            height: 300px;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 60%, rgba(0, 0, 0, 0.7));
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+        
+        /* Interactive Timeline */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 2px;
+            background: #64ffda;
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 50px;
+            width: 50%;
+            padding: 20px;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-content {
+            background: rgba(17, 34, 64, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            right: -10px;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 10px solid rgba(17, 34, 64, 0.7);
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: -10px;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right: 10px solid rgba(17, 34, 64, 0.7);
+        }
+        
+        .timeline-date {
+            font-weight: bold;
+            color: #64ffda;
+            margin-bottom: 10px;
+        }
+        
+        /* Love Letter Section */
+        .love-letter {
+            background: rgba(10, 25, 47, 0.9);
+        }
+        
+        .letter-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(17, 34, 64, 0.5);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .letter-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, #64ffda, #ff6b6b);
+        }
+        
+        .letter-content {
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+        
+        .letter-signature {
+            text-align: right;
+            margin-top: 30px;
+            font-style: italic;
+            color: #64ffda;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 50px 20px;
+            text-align: center;
+            background: #0a192f;
+            color: #8892b0;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInDown {
+            from { 
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3rem; }
+            .section-title { font-size: 2.5rem; }
+            .timeline::before { left: 30px; }
+            .timeline-item { width: 100%; left: 0 !important; padding-left: 70px; }
+            .timeline-item:nth-child(odd) .timeline-content::after,
+            .timeline-item:nth-child(even) .timeline-content::after {
+                left: 50px;
+                right: auto;
+                border-right: 10px solid rgba(17, 34, 64, 0.7);
+                border-left: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Stars Background -->
+    <div class="stars" id="stars"></div>
+    
+    <!-- Floating Elements -->
+    <div class="floating-elements" id="floatingElements"></div>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>To MaShazi</h1>
+            <p>"Her voice… calm as the ocean without waves."</p>
+            <button class="heart-btn" id="heartButton">
+                <i class="fas fa-heart"></i> Discover My Feelings
+            </button>
+        </div>
+        
+        <!-- Ocean Waves -->
+        <div class="ocean">
+            <div class="wave"></div>
+            <div class="wave"></div>
+        </div>
+    </section>
+    
+    <!-- Poem Section -->
+    <section class="section poem" id="poem">
+        <h2 class="section-title">Her Voice</h2>
+        <div class="poem-content">
+            <p>
+                Her voice isn't just sound — it's <span class="poem-highlight">serenity</span>.<br>
+                Each word flows like water finding its way home.<br>
+                Even silence feels safe when it's hers.
+            </p>
+            <p>
+                To <span class="poem-highlight">MaShazi</span>, Zindela, Bhayeka, Bombo S'bhagubhagu,<br>
+                Mkhonto owaduma ek'seni, Mgubhane owashiswa ilanga wozela,<br>
+                Ncabakhulu, Malinga, Nonjonjo, Mkhosana, Mbabathwa —<br>
+                names that carry rhythm, grace, and thunder.
+            </p>
+        </div>
+    </section>
+    
+    <!-- Gallery Section -->
+    <section class="section gallery" id="gallery">
+        <h2 class="section-title">Moments of MaShazi</h2>
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="gallery-item">
+                        <img src="img/IMG-20251006-WA0020.jpg" alt="MaShazi" class="img-fluid">
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="gallery-item">
+                        <img src="img/IMG-20251006-WA0021.jpg" alt="MaShazi" class="img-fluid">
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="gallery-item">
+                        <img src="img/IMG-20251006-WA0025.jpg" alt="MaShazi" class="img-fluid">
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="gallery-item">
+                        <img src="img/IMG-20251006-WA0035.jpg" alt="MaShazi" class="img-fluid">
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="gallery-item">
+                        <img src="img/IMG-20251006-WA0039.jpg" alt="MaShazi" class="img-fluid">
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="gallery-item">
+                        <img src="img/IMG-20251006-WA0043.jpg" alt="MaShazi" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Interactive Timeline -->
+    <section class="section" id="timeline">
+        <h2 class="section-title">Our Journey</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">The Beginning</div>
+                    <p>The first time I heard your voice, I knew there was something special about you. It felt like coming home.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">Getting to Know You</div>
+                    <p>Every conversation revealed another beautiful layer of your soul. Your laughter became my favorite sound.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">Special Moments</div>
+                    <p>Those small moments we've shared mean more to me than you could ever imagine. Each one is a treasure.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">Today</div>
+                    <p>My feelings for you have only grown stronger with time. You've become an essential part of my world.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Love Letter Section -->
+    <section class="section love-letter" id="letter">
+        <h2 class="section-title">My Heart's Words</h2>
+        <div class="letter-container">
+            <div class="letter-content">
+                <p>My Dearest MaShazi,</p>
+                <p>There are no words beautiful enough to truly capture what you mean to me. Your presence in my life has been like discovering a hidden oasis in the desert - refreshing, life-giving, and more precious than I could have imagined.</p>
+                <p>Your voice carries a melody that soothes my soul, and your laughter is a symphony that brightens even my darkest days. In your eyes, I've found a home I never knew I was searching for.</p>
+                <p>They say the ocean is deep, but my feelings for you run deeper. They say the stars are countless, but my reasons for admiring you are more numerous still.</p>
+                <p>You are my calm in the storm, my anchor in turbulent waters, and the beautiful whisper that echoes in my heart when all else is silent.</p>
+                <p>With all my love,</p>
+                <div class="letter-signature">
+                    <p>Anele</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <p>Made with endless love and admiration by Anele</p>
+    </footer>
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Create stars
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 300; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.style.width = Math.random() * 3 + 'px';
+            star.style.height = star.style.width;
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 5 + 's';
+            starsContainer.appendChild(star);
+        }
+        
+        // Create floating elements
+        const floatingContainer = document.getElementById('floatingElements');
+        const symbols = ['❤️', '💫', '🌊', '✨', '🌟', '💖', '🌙'];
+        
+        for (let i = 0; i < 25; i++) {
+            const element = document.createElement('div');
+            element.classList.add('floating-element');
+            element.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+            element.style.left = Math.random() * 100 + '%';
+            element.style.animationDelay = Math.random() * 20 + 's';
+            element.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            floatingContainer.appendChild(element);
+        }
+        
+        // Heart button interaction
+        const heartButton = document.getElementById('heartButton');
+        
+        heartButton.addEventListener('click', function() {
+            // Create heart explosion
+            for (let i = 0; i < 30; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤️';
+                heart.style.position = 'fixed';
+                heart.style.left = '50%';
+                heart.style.top = '50%';
+                heart.style.fontSize = (Math.random() * 30 + 20) + 'px';
+                heart.style.zIndex = '1000';
+                heart.style.pointerEvents = 'none';
+                heart.style.transform = 'translate(-50%, -50%)';
+                heart.style.animation = `heartExplosion 1s ease-out ${i * 0.05}s forwards`;
+                
+                // Add custom animation
+                const styleSheet = document.createElement('style');
+                styleSheet.textContent = `
+                    @keyframes heartExplosion {
+                        0% { 
+                            opacity: 1;
+                            transform: translate(-50%, -50%) scale(0);
+                        }
+                        50% {
+                            opacity: 1;
+                        }
+                        100% { 
+                            opacity: 0;
+                            transform: translate(
+                                ${Math.random() * 200 - 100}vw, 
+                                ${Math.random() * 200 - 100}vh
+                            ) scale(1);
+                        }
+                    }
+                `;
+                document.head.appendChild(styleSheet);
+                
+                document.body.appendChild(heart);
+                
+                // Remove heart after animation
+                setTimeout(() => {
+                    heart.remove();
+                }, 1000);
+            }
+            
+            // Change button text temporarily
+            const originalText = heartButton.innerHTML;
+            heartButton.innerHTML = '<i class="fas fa-heart"></i> You Mean Everything To Me';
+            heartButton.disabled = true;
+            
+            setTimeout(() => {
+                heartButton.innerHTML = originalText;
+                heartButton.disabled = false;
+            }, 3000);
+        });
+        
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe elements for scroll animations
+        document.querySelectorAll('.section').forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.8s ease';
+            observer.observe(el);
+        });
+        
+        // Parallax effect for hero section
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+        });
+        
+        // Add music on first interaction
+        document.body.addEventListener('click', function() {
+            // This would typically play a romantic song
+            // For demonstration, we'll just log to console
+            console.log("Romantic music would play here");
+        }, { once: true });
+    </script>
+</body>
+</html>
